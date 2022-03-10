@@ -147,83 +147,69 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                             },
                           ),
                         ),
-                        if (responsiveVisibility(
-                          context: context,
-                          tablet: false,
-                          tabletLandscape: false,
-                          desktop: false,
-                        ))
-                          Padding(
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
+                          child: SwitchListTile(
+                            value: swPollModeValue ??= FFAppState().PollingMode,
+                            onChanged: (newValue) =>
+                                setState(() => swPollModeValue = newValue),
+                            title: Text(
+                              'Poll server continuously',
+                              textAlign: TextAlign.end,
+                              style: FlutterFlowTheme.of(context).bodyText1,
+                            ),
+                            tileColor: Color(0xFFF5F5F5),
+                            dense: false,
+                            controlAffinity: ListTileControlAffinity.trailing,
+                          ),
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional(1, 0),
+                          child: Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
-                            child: SwitchListTile(
-                              value: swPollModeValue ??=
-                                  FFAppState().PollingMode,
-                              onChanged: (newValue) =>
-                                  setState(() => swPollModeValue = newValue),
-                              title: Text(
-                                'Poll server continuously',
-                                textAlign: TextAlign.end,
-                                style: FlutterFlowTheme.of(context).bodyText1,
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
+                            child: TextFormField(
+                              onChanged: (_) => EasyDebounce.debounce(
+                                'edtPollPeriodController',
+                                Duration(milliseconds: 50),
+                                () => setState(() {}),
                               ),
-                              tileColor: Color(0xFFF5F5F5),
-                              dense: false,
-                              controlAffinity: ListTileControlAffinity.trailing,
+                              controller: edtPollPeriodController,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Poll Interval [Seconds]',
+                                hintText: 'Numeric interval [sec] > 0',
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                filled: true,
+                              ),
+                              style: FlutterFlowTheme.of(context).bodyText1,
+                              textAlign: TextAlign.end,
+                              keyboardType: TextInputType.number,
+                              validator: (val) {
+                                if (val.isEmpty) {
+                                  return 'Field is required';
+                                }
+                                if (val.length < 1) {
+                                  return 'Interval must be greater then Null';
+                                }
+                                return null;
+                              },
                             ),
                           ),
-                        if (responsiveVisibility(
-                          context: context,
-                          tablet: false,
-                          tabletLandscape: false,
-                          desktop: false,
-                        ))
-                          Align(
-                            alignment: AlignmentDirectional(1, 0),
-                            child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
-                              child: TextFormField(
-                                onChanged: (_) => EasyDebounce.debounce(
-                                  'edtPollPeriodController',
-                                  Duration(milliseconds: 50),
-                                  () => setState(() {}),
-                                ),
-                                controller: edtPollPeriodController,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelText: 'Poll Interval [Seconds]',
-                                  hintText: 'Numeric interval [sec] > 0',
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  filled: true,
-                                ),
-                                style: FlutterFlowTheme.of(context).bodyText1,
-                                textAlign: TextAlign.end,
-                                keyboardType: TextInputType.number,
-                                validator: (val) {
-                                  if (val.isEmpty) {
-                                    return 'Field is required';
-                                  }
-                                  if (val.length < 1) {
-                                    return 'Interval must be greater then Null';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                          ),
+                        ),
                         Padding(
                           padding:
                               EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
