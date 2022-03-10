@@ -127,13 +127,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    valueOrDefault<String>(
-                                      getJsonField(
-                                        messagesItem,
-                                        r'''$.from''',
-                                      ).toString(),
-                                      'Public Broadcast',
-                                    ),
+                                    'Public Broadcast',
                                     textAlign: TextAlign.start,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText2
