@@ -6,59 +6,48 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'lat_lng.dart';
 import 'place.dart';
 
-String assemblePostBody(String message) {
+String assemblePostBody(
+  String message,
+  String nickname,
+) {
   // Add your function code here!
   String time = DateFormat('dd.MM.yyyy kk:mm:ss').format(DateTime.now());
 
   message = message.replaceAll("\\", "\\\\");
-//  message = message.replaceAll("'", "\\'");
   message = message.replaceAll('"', '\\"');
   message = message.replaceAll("\n", "\\n");
   message = message.replaceAll("\r", "\\r");
   message = message.replaceAll("\t", "\\t");
 
-  String body = '{"time": "$time", "msg": "$message"}';
+  nickname = nickname.replaceAll("\\", "\\\\");
+  nickname = nickname.replaceAll('"', '\\"');
+  nickname = nickname.replaceAll("\n", "\\n");
+  nickname = nickname.replaceAll("\r", "\\r");
+  nickname = nickname.replaceAll("\t", "\\t");
+
+  message = message.trim();
+  nickname = nickname.trim();
+
+  String body = '{"time":"$time","nick":"$nickname","msg":"$message"}';
   return (body);
 }
 
 bool validateSettings(
   String serverLink,
-  String fromAddress,
-  String toAddress,
-  String pollingIntervall,
+  int pollingIntervall,
+  String nickName,
 ) {
   // Add your function code here!
 
-  try {
-    if (pollingIntervall.isEmpty) return (false);
-    if (serverLink.length > 16) {
-      if (fromAddress.length == 20) {
-        if (toAddress.length == 20) {
-          if (int.parse(pollingIntervall) > 0) {
-            return (true);
-          }
-        }
-      }
-    }
-  } catch (e) {
-    return (false);
-  }
-
-  return (false);
+  if (nickName.replaceAll(' ', '').isEmpty) return (false);
+  if (pollingIntervall == 0) return (false);
+  if (serverLink.length <= 16) return (false);
+  return (true);
 }
 
-bool validateSendMessage(
-  String fromAddress,
-  String toAddress,
-  String messageText,
-) {
+bool validateSendMessage(String messageText) {
   // Add your function code here!
-  if (messageText.length > 0) {
-    if (fromAddress.length == 20) {
-      if (toAddress.length == 20) {
-        return (true);
-      }
-    }
-  }
-  return (false);
+  if (messageText.replaceAll(' ', '').isEmpty) return (false);
+  if (messageText.length > 200) return (false);
+  return (true);
 }

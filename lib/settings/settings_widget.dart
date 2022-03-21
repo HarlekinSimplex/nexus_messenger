@@ -15,19 +15,17 @@ class SettingsWidget extends StatefulWidget {
 }
 
 class _SettingsWidgetState extends State<SettingsWidget> {
-  TextEditingController edtFromAddressController;
+  TextEditingController edtNickNameController;
   TextEditingController edtPollPeriodController;
   TextEditingController edtServerLinkController;
   bool swPollModeValue;
-  TextEditingController edtToAddressController;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    edtFromAddressController =
-        TextEditingController(text: FFAppState().MessageFromAddress);
+    edtNickNameController = TextEditingController(text: FFAppState().NickName);
     edtPollPeriodController = TextEditingController(
         text: formatNumber(
       FFAppState().PollPeriod,
@@ -37,8 +35,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
     ));
     edtServerLinkController =
         TextEditingController(text: FFAppState().ServerLink);
-    edtToAddressController =
-        TextEditingController(text: FFAppState().MessageToAddress);
   }
 
   @override
@@ -70,11 +66,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                   () => FFAppState().ServerLink = edtServerLinkController.text);
               setState(() => FFAppState().PollingMode = swPollModeValue);
               setState(() => FFAppState().PollPeriod =
-                  int.parse(edtFromAddressController.text));
-              setState(() => FFAppState().MessageFromAddress =
-                  edtFromAddressController.text);
-              setState(() =>
-                  FFAppState().MessageToAddress = edtToAddressController.text);
+                  int.parse(edtNickNameController.text));
             },
             child: SingleChildScrollView(
               child: Column(
@@ -138,7 +130,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                 ),
                             validator: (val) {
                               if (val.isEmpty) {
-                                return 'Field is required';
+                                return 'Server Link missing or invalid';
                               }
                               if (val.length < 10) {
                                 return 'Valid Server Link required';
@@ -147,136 +139,67 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                             },
                           ),
                         ),
-                        if (responsiveVisibility(
-                          context: context,
-                          tablet: false,
-                          tabletLandscape: false,
-                          desktop: false,
-                        ))
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
-                            child: SwitchListTile(
-                              value: swPollModeValue ??=
-                                  FFAppState().PollingMode,
-                              onChanged: (newValue) =>
-                                  setState(() => swPollModeValue = newValue),
-                              title: Text(
-                                'Poll server continuously',
-                                textAlign: TextAlign.end,
-                                style: FlutterFlowTheme.of(context).bodyText1,
-                              ),
-                              tileColor: Color(0xFFF5F5F5),
-                              dense: false,
-                              controlAffinity: ListTileControlAffinity.trailing,
-                            ),
-                          ),
-                        if (responsiveVisibility(
-                          context: context,
-                          tablet: false,
-                          tabletLandscape: false,
-                          desktop: false,
-                        ))
-                          Align(
-                            alignment: AlignmentDirectional(1, 0),
-                            child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
-                              child: TextFormField(
-                                onChanged: (_) => EasyDebounce.debounce(
-                                  'edtPollPeriodController',
-                                  Duration(milliseconds: 50),
-                                  () => setState(() {}),
-                                ),
-                                controller: edtPollPeriodController,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelText: 'Poll Interval [Seconds]',
-                                  hintText: 'Numeric interval [sec] > 0',
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  filled: true,
-                                ),
-                                style: FlutterFlowTheme.of(context).bodyText1,
-                                textAlign: TextAlign.end,
-                                keyboardType: TextInputType.number,
-                                validator: (val) {
-                                  if (val.isEmpty) {
-                                    return 'Field is required';
-                                  }
-                                  if (val.length < 1) {
-                                    return 'Interval must be greater then Null';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                          ),
                         Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
-                          child: TextFormField(
-                            onChanged: (_) => EasyDebounce.debounce(
-                              'edtFromAddressController',
-                              Duration(milliseconds: 50),
-                              () => setState(() {}),
+                          padding: EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
+                          child: SwitchListTile(
+                            value: swPollModeValue ??= FFAppState().PollingMode,
+                            onChanged: (newValue) =>
+                                setState(() => swPollModeValue = newValue),
+                            title: Text(
+                              'Poll server continuously',
+                              textAlign: TextAlign.end,
+                              style: FlutterFlowTheme.of(context).bodyText1,
                             ),
-                            controller: edtFromAddressController,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              labelText: 'LXMF From: Address ID (20 Chr)',
-                              hintText: 'Enter From: Address ID',
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0x00000000),
-                                  width: 1,
-                                ),
-                                borderRadius: BorderRadius.circular(10),
+                            tileColor: Color(0xFFF5F5F5),
+                            dense: false,
+                            controlAffinity: ListTileControlAffinity.trailing,
+                          ),
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional(1, 0),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
+                            child: TextFormField(
+                              onChanged: (_) => EasyDebounce.debounce(
+                                'edtPollPeriodController',
+                                Duration(milliseconds: 50),
+                                () => setState(() {}),
                               ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0x00000000),
-                                  width: 1,
+                              controller: edtPollPeriodController,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Poll Interval [Seconds]',
+                                hintText: 'Numeric interval [sec] > 0',
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
-                                borderRadius: BorderRadius.circular(10),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                filled: true,
                               ),
-                              filled: true,
-                              suffixIcon: edtFromAddressController
-                                      .text.isNotEmpty
-                                  ? InkWell(
-                                      onTap: () => setState(
-                                        () => edtFromAddressController.clear(),
-                                      ),
-                                      child: Icon(
-                                        Icons.clear,
-                                        color: Color(0xFF757575),
-                                        size: 22,
-                                      ),
-                                    )
-                                  : null,
+                              style: FlutterFlowTheme.of(context).bodyText1,
+                              textAlign: TextAlign.end,
+                              keyboardType: TextInputType.number,
+                              validator: (val) {
+                                if (val.isEmpty) {
+                                  return 'Field is required';
+                                }
+                                if (val.length < 1) {
+                                  return 'Interval must be greater then Null';
+                                }
+                                return null;
+                              },
                             ),
-                            style: FlutterFlowTheme.of(context).bodyText1,
-                            validator: (val) {
-                              if (val.isEmpty) {
-                                return 'Field is required';
-                              }
-                              if (val.length < 20) {
-                                return 'LXMF Address must be 20 Characters long';
-                              }
-                              return null;
-                            },
                           ),
                         ),
                         Padding(
@@ -284,15 +207,15 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                               EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
                           child: TextFormField(
                             onChanged: (_) => EasyDebounce.debounce(
-                              'edtToAddressController',
+                              'edtNickNameController',
                               Duration(milliseconds: 50),
                               () => setState(() {}),
                             ),
-                            controller: edtToAddressController,
+                            controller: edtNickNameController,
                             obscureText: false,
                             decoration: InputDecoration(
-                              labelText: 'LXMF To: Address ID  (20 Chr)',
-                              hintText: 'Enter To: Address ID',
+                              labelText: 'Nick Name',
+                              hintText: 'Enter your Nickname',
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Color(0x00000000),
@@ -308,10 +231,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               filled: true,
-                              suffixIcon: edtToAddressController.text.isNotEmpty
+                              suffixIcon: edtNickNameController.text.isNotEmpty
                                   ? InkWell(
                                       onTap: () => setState(
-                                        () => edtToAddressController.clear(),
+                                        () => edtNickNameController.clear(),
                                       ),
                                       child: Icon(
                                         Icons.clear,
@@ -324,10 +247,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                             style: FlutterFlowTheme.of(context).bodyText1,
                             validator: (val) {
                               if (val.isEmpty) {
-                                return 'Field is required';
+                                return 'Nick Name missing or to short';
                               }
-                              if (val.length < 20) {
-                                return 'LXMF Address must be 20 Characters long';
+                              if (val.length < 3) {
+                                return 'Nickname must be at least 3 Chars long';
                               }
                               return null;
                             },
@@ -335,9 +258,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                         ),
                         if (functions.validateSettings(
                                 edtServerLinkController.text,
-                                edtFromAddressController.text,
-                                edtToAddressController.text,
-                                edtPollPeriodController.text) ??
+                                int.parse(edtPollPeriodController.text),
+                                edtNickNameController.text) ??
                             true)
                           Padding(
                             padding:
@@ -361,24 +283,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                       int.parse(edtPollPeriodController.text));
                                 }
 
-                                if ((edtFromAddressController.text) == '') {
-                                  setState(() =>
-                                      FFAppState().MessageFromAddress =
-                                          '00000000000000000000');
+                                if ((edtNickNameController.text) == '') {
+                                  setState(() => FFAppState().NickName =
+                                      FFAppState().defaultNickName);
                                 } else {
-                                  setState(() =>
-                                      FFAppState().MessageFromAddress =
-                                          edtFromAddressController.text);
-                                }
-
-                                setState(() => FFAppState().MessageToAddress =
-                                    edtToAddressController.text);
-                                if ((edtToAddressController.text) == '') {
-                                  setState(() => FFAppState().MessageToAddress =
-                                      '00000000000000000000');
-                                } else {
-                                  setState(() => FFAppState().MessageToAddress =
-                                      edtToAddressController.text);
+                                  setState(() => FFAppState().NickName =
+                                      edtNickNameController.text);
                                 }
 
                                 await Navigator.pushAndRemoveUntil(
@@ -438,7 +348,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                         child: Text(
-                          'Version 1.1.0',
+                          'Version 1.2.0',
                           textAlign: TextAlign.start,
                           style: FlutterFlowTheme.of(context).bodyText2,
                         ),

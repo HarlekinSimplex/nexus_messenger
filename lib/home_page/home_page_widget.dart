@@ -126,21 +126,27 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    valueOrDefault<String>(
-                                      getJsonField(
-                                        messagesItem,
-                                        r'''$.from''',
-                                      ).toString(),
-                                      'Public Broadcast',
-                                    ),
-                                    textAlign: TextAlign.start,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText2
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 13,
-                                        ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        getJsonField(
+                                          messagesItem,
+                                          r'''$.nick''',
+                                        ).toString(),
+                                        textAlign: TextAlign.start,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText2
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: Color(0xFF009933),
+                                              fontSize: 13,
+                                            ),
+                                      ),
+                                    ],
                                   ),
                                   Text(
                                     getJsonField(
@@ -150,6 +156,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           maxChars: 200,
                                           replacement: '…',
                                         ),
+                                    textAlign: TextAlign.start,
                                     style: FlutterFlowTheme.of(context)
                                         .title3
                                         .override(
@@ -157,21 +164,46 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           fontSize: 15,
                                         ),
                                   ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 5),
-                                    child: Text(
-                                      getJsonField(
-                                        messagesItem,
-                                        r'''$.time''',
-                                      ).toString(),
-                                      style: FlutterFlowTheme.of(context)
-                                          .subtitle2
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 10,
-                                          ),
-                                    ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 5),
+                                        child: Text(
+                                          getJsonField(
+                                            messagesItem,
+                                            r'''$.time''',
+                                          ).toString(),
+                                          textAlign: TextAlign.start,
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle2
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                fontSize: 10,
+                                              ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            5, 0, 0, 5),
+                                        child: Text(
+                                          getJsonField(
+                                            messagesItem,
+                                            r'''$.origin''',
+                                          ).toString(),
+                                          textAlign: TextAlign.start,
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle2
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                fontSize: 10,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
