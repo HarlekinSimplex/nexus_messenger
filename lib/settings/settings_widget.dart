@@ -258,7 +258,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                         ),
                         if (functions.validateSettings(
                                 edtServerLinkController.text,
-                                int.parse(edtPollPeriodController.text)) ??
+                                int.parse(edtPollPeriodController.text),
+                                edtNickNameController.text) ??
                             true)
                           Padding(
                             padding:

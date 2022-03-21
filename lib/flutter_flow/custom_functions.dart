@@ -32,17 +32,19 @@ String assemblePostBody(
 bool validateSettings(
   String serverLink,
   int pollingIntervall,
+  String nickName,
 ) {
   // Add your function code here!
 
-  if (pollingIntervall > 0) return (true);
-  if (serverLink.length > 16) return (true);
-  return (false);
+  if (nickName.replaceAll(' ', '').isEmpty) return (false);
+  if (pollingIntervall == 0) return (false);
+  if (serverLink.length <= 16) return (false);
+  return (true);
 }
 
 bool validateSendMessage(String messageText) {
   // Add your function code here!
-  if (messageText.trim().isEmpty) return (false);
+  if (messageText.replaceAll(' ', '').isEmpty) return (false);
   if (messageText.length > 200) return (false);
   return (true);
 }
