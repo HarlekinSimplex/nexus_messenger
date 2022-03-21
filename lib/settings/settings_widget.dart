@@ -15,19 +15,17 @@ class SettingsWidget extends StatefulWidget {
 }
 
 class _SettingsWidgetState extends State<SettingsWidget> {
-  TextEditingController edtFromAddressController;
+  TextEditingController edtNickNameController;
   TextEditingController edtPollPeriodController;
   TextEditingController edtServerLinkController;
   bool swPollModeValue;
-  TextEditingController edtToAddressController;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    edtFromAddressController =
-        TextEditingController(text: FFAppState().MessageFromAddress);
+    edtNickNameController = TextEditingController(text: FFAppState().NickName);
     edtPollPeriodController = TextEditingController(
         text: formatNumber(
       FFAppState().PollPeriod,
@@ -37,8 +35,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
     ));
     edtServerLinkController =
         TextEditingController(text: FFAppState().ServerLink);
-    edtToAddressController =
-        TextEditingController(text: FFAppState().MessageToAddress);
   }
 
   @override
@@ -70,11 +66,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                   () => FFAppState().ServerLink = edtServerLinkController.text);
               setState(() => FFAppState().PollingMode = swPollModeValue);
               setState(() => FFAppState().PollPeriod =
-                  int.parse(edtFromAddressController.text));
-              setState(() => FFAppState().MessageFromAddress =
-                  edtFromAddressController.text);
-              setState(() =>
-                  FFAppState().MessageToAddress = edtToAddressController.text);
+                  int.parse(edtNickNameController.text));
             },
             child: SingleChildScrollView(
               child: Column(
@@ -215,15 +207,15 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                               EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
                           child: TextFormField(
                             onChanged: (_) => EasyDebounce.debounce(
-                              'edtFromAddressController',
+                              'edtNickNameController',
                               Duration(milliseconds: 50),
                               () => setState(() {}),
                             ),
-                            controller: edtFromAddressController,
+                            controller: edtNickNameController,
                             obscureText: false,
                             decoration: InputDecoration(
-                              labelText: 'LXMF From: Address ID (20 Chr)',
-                              hintText: 'Enter From: Address ID',
+                              labelText: 'Nick Name',
+                              hintText: 'Enter your Nickname',
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Color(0x00000000),
@@ -239,11 +231,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               filled: true,
-                              suffixIcon: edtFromAddressController
-                                      .text.isNotEmpty
+                              suffixIcon: edtNickNameController.text.isNotEmpty
                                   ? InkWell(
                                       onTap: () => setState(
-                                        () => edtFromAddressController.clear(),
+                                        () => edtNickNameController.clear(),
                                       ),
                                       child: Icon(
                                         Icons.clear,
@@ -258,62 +249,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                               if (val.isEmpty) {
                                 return 'Field is required';
                               }
-                              if (val.length < 20) {
-                                return 'LXMF Address must be 20 Characters long';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
-                          child: TextFormField(
-                            onChanged: (_) => EasyDebounce.debounce(
-                              'edtToAddressController',
-                              Duration(milliseconds: 50),
-                              () => setState(() {}),
-                            ),
-                            controller: edtToAddressController,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              labelText: 'LXMF To: Address ID  (20 Chr)',
-                              hintText: 'Enter To: Address ID',
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0x00000000),
-                                  width: 1,
-                                ),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0x00000000),
-                                  width: 1,
-                                ),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              filled: true,
-                              suffixIcon: edtToAddressController.text.isNotEmpty
-                                  ? InkWell(
-                                      onTap: () => setState(
-                                        () => edtToAddressController.clear(),
-                                      ),
-                                      child: Icon(
-                                        Icons.clear,
-                                        color: Color(0xFF757575),
-                                        size: 22,
-                                      ),
-                                    )
-                                  : null,
-                            ),
-                            style: FlutterFlowTheme.of(context).bodyText1,
-                            validator: (val) {
-                              if (val.isEmpty) {
-                                return 'Field is required';
-                              }
-                              if (val.length < 20) {
-                                return 'LXMF Address must be 20 Characters long';
+                              if (val.length < 3) {
+                                return 'Nickname must be at least 3 Characters long';
                               }
                               return null;
                             },
@@ -321,9 +258,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                         ),
                         if (functions.validateSettings(
                                 edtServerLinkController.text,
-                                edtFromAddressController.text,
-                                edtToAddressController.text,
-                                edtPollPeriodController.text) ??
+                                int.parse(edtPollPeriodController.text)) ??
                             true)
                           Padding(
                             padding:
@@ -347,24 +282,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                       int.parse(edtPollPeriodController.text));
                                 }
 
-                                if ((edtFromAddressController.text) == '') {
-                                  setState(() =>
-                                      FFAppState().MessageFromAddress =
-                                          '00000000000000000000');
+                                if ((edtNickNameController.text) == '') {
+                                  setState(() => FFAppState().NickName =
+                                      FFAppState().defaultNickName);
                                 } else {
-                                  setState(() =>
-                                      FFAppState().MessageFromAddress =
-                                          edtFromAddressController.text);
-                                }
-
-                                setState(() => FFAppState().MessageToAddress =
-                                    edtToAddressController.text);
-                                if ((edtToAddressController.text) == '') {
-                                  setState(() => FFAppState().MessageToAddress =
-                                      '00000000000000000000');
-                                } else {
-                                  setState(() => FFAppState().MessageToAddress =
-                                      edtToAddressController.text);
+                                  setState(() => FFAppState().NickName =
+                                      edtNickNameController.text);
                                 }
 
                                 await Navigator.pushAndRemoveUntil(

@@ -134,6 +134,8 @@ dynamic getJsonField(dynamic response, String jsonPath) {
 }
 
 bool get isAndroid => !kIsWeb && Platform.isAndroid;
+bool get isiOS => !kIsWeb && Platform.isIOS;
+bool get isWeb => kIsWeb;
 bool responsiveVisibility({
   @required BuildContext context,
   bool phone = true,

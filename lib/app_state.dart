@@ -15,15 +15,14 @@ class FFAppState {
   Future initializePersistedState() async {
     prefs = await SharedPreferences.getInstance();
     _ServerLink = prefs.getString('ff_ServerLink') ?? _ServerLink;
-    _MessageFromAddress =
-        prefs.getString('ff_MessageFromAddress') ?? _MessageFromAddress;
-    _MessageToAddress =
-        prefs.getString('ff_MessageToAddress') ?? _MessageToAddress;
     _PollPeriod = prefs.getInt('ff_PollPeriod') ?? _PollPeriod;
     _PollingMode = prefs.getBool('ff_PollingMode') ?? _PollingMode;
     _defaultServerLink =
         prefs.getString('ff_defaultServerLink') ?? _defaultServerLink;
     _defaultMessage = prefs.getString('ff_defaultMessage') ?? _defaultMessage;
+    _NickName = prefs.getString('ff_NickName') ?? _NickName;
+    _defaultNickName =
+        prefs.getString('ff_defaultNickName') ?? _defaultNickName;
   }
 
   SharedPreferences prefs;
@@ -33,20 +32,6 @@ class FFAppState {
   set ServerLink(String _value) {
     _ServerLink = _value;
     prefs.setString('ff_ServerLink', _value);
-  }
-
-  String _MessageFromAddress = '';
-  String get MessageFromAddress => _MessageFromAddress;
-  set MessageFromAddress(String _value) {
-    _MessageFromAddress = _value;
-    prefs.setString('ff_MessageFromAddress', _value);
-  }
-
-  String _MessageToAddress = '';
-  String get MessageToAddress => _MessageToAddress;
-  set MessageToAddress(String _value) {
-    _MessageToAddress = _value;
-    prefs.setString('ff_MessageToAddress', _value);
   }
 
   int _PollPeriod = 5;
@@ -75,6 +60,20 @@ class FFAppState {
   set defaultMessage(String _value) {
     _defaultMessage = _value;
     prefs.setString('ff_defaultMessage', _value);
+  }
+
+  String _NickName = '';
+  String get NickName => _NickName;
+  set NickName(String _value) {
+    _NickName = _value;
+    prefs.setString('ff_NickName', _value);
+  }
+
+  String _defaultNickName = 'Anonymous';
+  String get defaultNickName => _defaultNickName;
+  set defaultNickName(String _value) {
+    _defaultNickName = _value;
+    prefs.setString('ff_defaultNickName', _value);
   }
 }
 

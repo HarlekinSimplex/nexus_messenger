@@ -17,8 +17,6 @@ class SendMessageWidget extends StatefulWidget {
 }
 
 class _SendMessageWidgetState extends State<SendMessageWidget> {
-  TextEditingController edtFromAddressController;
-  TextEditingController edtToAddressController;
   TextEditingController edtMessageController;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -26,10 +24,6 @@ class _SendMessageWidgetState extends State<SendMessageWidget> {
   @override
   void initState() {
     super.initState();
-    edtFromAddressController =
-        TextEditingController(text: FFAppState().MessageFromAddress);
-    edtToAddressController =
-        TextEditingController(text: FFAppState().MessageToAddress);
     edtMessageController =
         TextEditingController(text: FFAppState().defaultMessage);
   }
@@ -123,112 +117,6 @@ class _SendMessageWidgetState extends State<SendMessageWidget> {
                       padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
                       child: TextFormField(
                         onChanged: (_) => EasyDebounce.debounce(
-                          'edtFromAddressController',
-                          Duration(milliseconds: 50),
-                          () => setState(() {}),
-                        ),
-                        controller: edtFromAddressController,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          labelText: 'From:',
-                          hintText: 'From: Message Address',
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          filled: true,
-                          suffixIcon: edtFromAddressController.text.isNotEmpty
-                              ? InkWell(
-                                  onTap: () => setState(
-                                    () => edtFromAddressController.clear(),
-                                  ),
-                                  child: Icon(
-                                    Icons.clear,
-                                    color: Color(0xFF757575),
-                                    size: 22,
-                                  ),
-                                )
-                              : null,
-                        ),
-                        style: FlutterFlowTheme.of(context).bodyText1,
-                        validator: (val) {
-                          if (val.isEmpty) {
-                            return 'Field is required';
-                          }
-                          if (val.length < 20) {
-                            return 'LXMF Address must be 20 Characters long';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
-                      child: TextFormField(
-                        onChanged: (_) => EasyDebounce.debounce(
-                          'edtToAddressController',
-                          Duration(milliseconds: 50),
-                          () => setState(() {}),
-                        ),
-                        controller: edtToAddressController,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          labelText: 'To:',
-                          hintText: 'From: Message Address',
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          filled: true,
-                          suffixIcon: edtToAddressController.text.isNotEmpty
-                              ? InkWell(
-                                  onTap: () => setState(
-                                    () => edtToAddressController.clear(),
-                                  ),
-                                  child: Icon(
-                                    Icons.clear,
-                                    color: Color(0xFF757575),
-                                    size: 22,
-                                  ),
-                                )
-                              : null,
-                        ),
-                        style: FlutterFlowTheme.of(context).bodyText1,
-                        validator: (val) {
-                          if (val.isEmpty) {
-                            return 'Field is required';
-                          }
-                          if (val.length < 20) {
-                            return 'LXMF Address must be 20 Characters long';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
-                      child: TextFormField(
-                        onChanged: (_) => EasyDebounce.debounce(
                           'edtMessageController',
                           Duration(milliseconds: 50),
                           () => setState(() {}),
@@ -237,7 +125,7 @@ class _SendMessageWidgetState extends State<SendMessageWidget> {
                         obscureText: false,
                         decoration: InputDecoration(
                           labelText: 'Message:',
-                          hintText: 'Enter your message',
+                          hintText: 'Enter your message [max. 200 Chars]',
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
@@ -271,10 +159,8 @@ class _SendMessageWidgetState extends State<SendMessageWidget> {
                         maxLines: 5,
                       ),
                     ),
-                    if (functions.validateSendMessage(
-                            edtFromAddressController.text,
-                            edtToAddressController.text,
-                            edtMessageController.text) ??
+                    if (functions
+                            .validateSendMessage(edtMessageController.text) ??
                         true)
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
@@ -287,7 +173,8 @@ class _SendMessageWidgetState extends State<SendMessageWidget> {
                               ),
                               postBody: valueOrDefault<String>(
                                 functions.assemblePostBody(
-                                    edtMessageController.text),
+                                    edtMessageController.text,
+                                    FFAppState().NickName),
                                 'Hello from Flutter Flow!',
                               ),
                             );
