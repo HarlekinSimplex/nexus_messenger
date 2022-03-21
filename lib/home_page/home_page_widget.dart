@@ -128,8 +128,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 children: [
                                   Row(
                                     mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Text(
                                         getJsonField(
@@ -141,17 +142,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             .bodyText2
                                             .override(
                                               fontFamily: 'Poppins',
+                                              color: Color(0xFF009933),
                                               fontSize: 13,
-                                            ),
-                                      ),
-                                      Text(
-                                        'Public Broadcast',
-                                        textAlign: TextAlign.start,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText2
-                                            .override(
-                                              fontFamily: 'Poppins',
-                                              fontSize: 10,
                                             ),
                                       ),
                                     ],
@@ -164,6 +156,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           maxChars: 200,
                                           replacement: '…',
                                         ),
+                                    textAlign: TextAlign.start,
                                     style: FlutterFlowTheme.of(context)
                                         .title3
                                         .override(
@@ -173,8 +166,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   ),
                                   Row(
                                     mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -184,6 +177,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             messagesItem,
                                             r'''$.time''',
                                           ).toString(),
+                                          textAlign: TextAlign.start,
                                           style: FlutterFlowTheme.of(context)
                                               .subtitle2
                                               .override(
@@ -194,12 +188,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 0, 5),
+                                            5, 0, 0, 5),
                                         child: Text(
                                           getJsonField(
                                             messagesItem,
                                             r'''$.origin''',
                                           ).toString(),
+                                          textAlign: TextAlign.start,
                                           style: FlutterFlowTheme.of(context)
                                               .subtitle2
                                               .override(

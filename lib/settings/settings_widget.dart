@@ -130,7 +130,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                 ),
                             validator: (val) {
                               if (val.isEmpty) {
-                                return 'Field is required';
+                                return 'Server Link missing or invalid';
                               }
                               if (val.length < 10) {
                                 return 'Valid Server Link required';
@@ -247,10 +247,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                             style: FlutterFlowTheme.of(context).bodyText1,
                             validator: (val) {
                               if (val.isEmpty) {
-                                return 'Field is required';
+                                return 'Nick Name missing or to short';
                               }
                               if (val.length < 3) {
-                                return 'Nickname must be at least 3 Characters long';
+                                return 'Nickname must be at least 3 Chars long';
                               }
                               return null;
                             },
@@ -348,7 +348,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                         child: Text(
-                          'Version 1.1.0',
+                          'Version 1.2.0',
                           textAlign: TextAlign.start,
                           style: FlutterFlowTheme.of(context).bodyText2,
                         ),

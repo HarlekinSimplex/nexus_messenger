@@ -25,6 +25,9 @@ String assemblePostBody(
   nickname = nickname.replaceAll("\r", "\\r");
   nickname = nickname.replaceAll("\t", "\\t");
 
+  message = message.trim();
+  nickname = nickname.trim();
+
   String body = '{"time":"$time","nick":"$nickname","msg":"$message"}';
   return (body);
 }
