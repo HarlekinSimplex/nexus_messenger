@@ -11,7 +11,7 @@ String assemblePostBody(
   String nickname,
 ) {
   // Add your function code here!
-  String time = DateFormat('dd.MM.yyyy kk:mm:ss').format(DateTime.now());
+  String time = DateFormat('dd.MM.yyyy HH:mm:ss').format(DateTime.now());
 
   message = message.replaceAll("\\", "\\\\");
   message = message.replaceAll('"', '\\"');
