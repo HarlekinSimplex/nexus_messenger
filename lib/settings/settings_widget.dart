@@ -348,7 +348,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                         child: Text(
-                          'Version 1.2.0',
+                          'Version 1.2.1',
                           textAlign: TextAlign.start,
                           style: FlutterFlowTheme.of(context).bodyText2,
                         ),
