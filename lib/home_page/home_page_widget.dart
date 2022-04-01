@@ -203,6 +203,32 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               ),
                                         ),
                                       ),
+                                      if (getJsonField(
+                                            messagesItem,
+                                            r'''$.path''',
+                                          ) !=
+                                          null)
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  5, 0, 0, 5),
+                                          child: Text(
+                                            valueOrDefault<String>(
+                                              getJsonField(
+                                                messagesItem,
+                                                r'''$.path''',
+                                              ).toString(),
+                                              'local',
+                                            ),
+                                            textAlign: TextAlign.start,
+                                            style: FlutterFlowTheme.of(context)
+                                                .subtitle2
+                                                .override(
+                                                  fontFamily: 'Poppins',
+                                                  fontSize: 10,
+                                                ),
+                                          ),
+                                        ),
                                     ],
                                   ),
                                 ],
