@@ -48,6 +48,6 @@ bool validateSettings(
 bool validateSendMessage(String messageText) {
   // Add your function code here!
   if (messageText.replaceAll(' ', '').isEmpty) return (false);
-  if (messageText.length > 200) return (false);
+  if (messageText.length > 150) return (false);
   return (true);
 }
