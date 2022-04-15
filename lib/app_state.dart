@@ -48,7 +48,7 @@ class FFAppState {
     prefs.setBool('ff_PollingMode', _value);
   }
 
-  String _defaultServerLink = 'https://nexus.deltamatrix.org:8243';
+  String _defaultServerLink = 'https://nexus.deltamatrix.org:8241';
   String get defaultServerLink => _defaultServerLink;
   set defaultServerLink(String _value) {
     _defaultServerLink = _value;
