@@ -30,7 +30,7 @@ dependencies:
   easy_debounce: 2.0.1
   equatable: 2.0.3
   font_awesome_flutter: 8.11.0
-  google_fonts: 2.1.0
+  google_fonts: 2.2.0
   intl: 0.17.0
   json_path: 0.2.1
   page_transition: 2.0.4

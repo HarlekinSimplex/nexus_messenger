@@ -146,11 +146,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               fontSize: 13,
                                             ),
                                       ),
-                                      if (getJsonField(
+                                      if ((getJsonField(
                                             messagesItem,
                                             r'''$.path''',
                                           ) !=
-                                          null)
+                                          null))
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -179,7 +179,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       messagesItem,
                                       r'''$.msg''',
                                     ).toString().maybeHandleOverflow(
-                                          maxChars: 200,
+                                          maxChars: 1024,
                                           replacement: '…',
                                         ),
                                     textAlign: TextAlign.start,
