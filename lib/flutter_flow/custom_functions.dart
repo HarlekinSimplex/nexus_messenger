@@ -30,7 +30,7 @@ String assemblePostBody(
   nickname = nickname.trim();
 
   body =
-      '{"p0":0, "cmdv":"1", "p1": {"time":"$time","nick":"$nickname","msg":"$message", msgv="4.2"}}';
+      '{"p0":0,"cmdv":"1","p1":{"time":"$time","nick":"$nickname","msg":"$message","msgv":"4.2"}}';
 
   return (body);
 }
