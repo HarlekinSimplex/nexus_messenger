@@ -12,6 +12,7 @@ String assemblePostBody(
 ) {
   // Add your function code here!
   String time = DateFormat('dd.MM.yyyy HH:mm:ss').format(DateTime.now());
+  String message, nickname, body;
 
   message = message.replaceAll("\\", "\\\\");
   message = message.replaceAll('"', '\\"');
@@ -28,7 +29,9 @@ String assemblePostBody(
   message = message.trim();
   nickname = nickname.trim();
 
-  String body = '{"time":"$time","nick":"$nickname","msg":"$message"}';
+  body =
+      '{"p0":0, "cmdv":"1", "p1": {"time":"$time","nick":"$nickname","msg":"$message", msgv="4.2"}}';
+
   return (body);
 }
 
