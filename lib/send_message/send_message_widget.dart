@@ -7,6 +7,7 @@ import '../main.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SendMessageWidget extends StatefulWidget {
@@ -24,6 +25,16 @@ class _SendMessageWidgetState extends State<SendMessageWidget> {
   @override
   void initState() {
     super.initState();
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => NavBarPage(initialPage: 'HomePage'),
+        ),
+      );
+    });
+
     edtMessageController =
         TextEditingController(text: FFAppState().defaultMessage);
   }
@@ -45,8 +56,13 @@ class _SendMessageWidgetState extends State<SendMessageWidget> {
             color: Colors.white,
             size: 30,
           ),
-          onPressed: () {
-            print('IconButton pressed ...');
+          onPressed: () async {
+            await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => NavBarPage(initialPage: 'HomePage'),
+              ),
+            );
           },
         ),
         title: Text(

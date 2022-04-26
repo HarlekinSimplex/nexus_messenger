@@ -31,7 +31,7 @@ class NexsusServerGetCall {
 class NexusServerPostCall {
   static Future<ApiCallResponse> call({
     String postBody =
-        '{\"time\": \"2022-03-09 03:42:00\", \"msg\": \"Hello World from Flutter Flow\", \"id\": 164647256425086\"}',
+        '{\"time\": \"2022-03-09 03:42:00\", \"msg\": \"Hello World from Flutter Flow\", \"id\": 164647256425086\", \"msgv\": \"4.2\"}',
     String serverLink = 'https://nexus.deltamatrix.org:8243',
   }) {
     final body = '''
