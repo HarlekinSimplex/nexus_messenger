@@ -1,4 +1,5 @@
 import '../backend/api_requests/api_calls.dart';
+import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../send_message/send_message_widget.dart';
@@ -13,7 +14,25 @@ class HomePageWidget extends StatefulWidget {
   _HomePageWidgetState createState() => _HomePageWidgetState();
 }
 
-class _HomePageWidgetState extends State<HomePageWidget> {
+class _HomePageWidgetState extends State<HomePageWidget>
+    with TickerProviderStateMixin {
+  final animationsMap = {
+    'listViewOnPageLoadAnimation': AnimationInfo(
+      curve: Curves.easeIn,
+      trigger: AnimationTrigger.onPageLoad,
+      duration: 600,
+      initialState: AnimationState(
+        offset: Offset(0, 0),
+        scale: 1,
+        opacity: 0,
+      ),
+      finalState: AnimationState(
+        offset: Offset(0, 0),
+        scale: 1,
+        opacity: 1,
+      ),
+    ),
+  };
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -26,6 +45,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             () => FFAppState().ServerLink = FFAppState().defaultServerLink);
       }
     });
+
+    startPageLoadAnimations(
+      animationsMap.values
+          .where((anim) => anim.trigger == AnimationTrigger.onPageLoad),
+      this,
+    );
   }
 
   @override
@@ -238,7 +263,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         ),
                       );
                     },
-                  );
+                  ).animated([animationsMap['listViewOnPageLoadAnimation']]);
                 },
               ),
             ),

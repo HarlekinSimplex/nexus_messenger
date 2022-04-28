@@ -84,12 +84,12 @@ class _SendMessageWidgetState extends State<SendMessageWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
                       child: TextFormField(
+                        controller: edtMessageController,
                         onChanged: (_) => EasyDebounce.debounce(
                           'edtMessageController',
                           Duration(milliseconds: 50),
                           () => setState(() {}),
                         ),
-                        controller: edtMessageController,
                         obscureText: false,
                         decoration: InputDecoration(
                           labelText: 'Message:',

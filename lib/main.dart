@@ -1,19 +1,16 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:nexus_messenger/home_page/home_page_widget.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'home_page/home_page_widget.dart';
-import 'settings/settings_widget.dart';
+import 'index.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize FFAppState.
-  FFAppState();
+  FFAppState(); // Initialize FFAppState
 
   runApp(MyApp());
 }
@@ -30,6 +27,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Locale _locale;
   ThemeMode _themeMode = ThemeMode.system;
+
   bool displaySplashImage = true;
 
   @override
@@ -62,7 +60,7 @@ class _MyAppState extends State<MyApp> {
       themeMode: _themeMode,
       home: displaySplashImage
           ? Container(
-              color: Color(0x84003366),
+              color: FlutterFlowTheme.of(context).commonColor0,
               child: Builder(
                 builder: (context) => Image.asset(
                   'assets/images/Logo_TriColor_WhiteBack_200407-SBR-01.png',

@@ -1,4 +1,4 @@
-package de.beckersystemberatung.de.nexus
+package de.beckersystemberatung.nexus
 
 import io.flutter.embedding.android.FlutterActivity
 

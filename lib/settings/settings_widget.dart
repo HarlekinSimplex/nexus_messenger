@@ -82,12 +82,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           padding:
                               EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
                           child: TextFormField(
+                            controller: edtServerLinkController,
                             onChanged: (_) => EasyDebounce.debounce(
                               'edtServerLinkController',
                               Duration(milliseconds: 50),
                               () => setState(() {}),
                             ),
-                            controller: edtServerLinkController,
                             obscureText: false,
                             decoration: InputDecoration(
                               labelText: 'Nexus Server Link',
@@ -161,12 +161,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                             child: TextFormField(
+                              controller: edtPollPeriodController,
                               onChanged: (_) => EasyDebounce.debounce(
                                 'edtPollPeriodController',
                                 Duration(milliseconds: 50),
                                 () => setState(() {}),
                               ),
-                              controller: edtPollPeriodController,
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: 'Poll Interval [Seconds]',
@@ -206,12 +206,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           padding:
                               EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
                           child: TextFormField(
+                            controller: edtNickNameController,
                             onChanged: (_) => EasyDebounce.debounce(
                               'edtNickNameController',
                               Duration(milliseconds: 50),
                               () => setState(() {}),
                             ),
-                            controller: edtNickNameController,
                             obscureText: false,
                             decoration: InputDecoration(
                               labelText: 'Nick Name',
@@ -348,7 +348,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                         child: Text(
-                          'Version 1.4.0.1',
+                          'Version 1.4.0.3',
                           textAlign: TextAlign.start,
                           style: FlutterFlowTheme.of(context).bodyText2,
                         ),
