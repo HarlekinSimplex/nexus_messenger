@@ -61,10 +61,14 @@ class _MyAppState extends State<MyApp> {
       home: displaySplashImage
           ? Container(
               color: FlutterFlowTheme.of(context).commonColor0,
-              child: Builder(
-                builder: (context) => Image.asset(
-                  'assets/images/Logo_TriColor_WhiteBack_200407-SBR-01.png',
-                  fit: BoxFit.scaleDown,
+              child: Center(
+                child: Builder(
+                  builder: (context) => Image.asset(
+                    'assets/images/Element_1ldpi.png',
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.8,
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
             )

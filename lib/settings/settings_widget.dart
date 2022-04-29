@@ -16,9 +16,7 @@ class SettingsWidget extends StatefulWidget {
 
 class _SettingsWidgetState extends State<SettingsWidget> {
   TextEditingController edtNickNameController;
-  TextEditingController edtPollPeriodController;
   TextEditingController edtServerLinkController;
-  bool swPollModeValue;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -26,13 +24,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
   void initState() {
     super.initState();
     edtNickNameController = TextEditingController(text: FFAppState().NickName);
-    edtPollPeriodController = TextEditingController(
-        text: formatNumber(
-      FFAppState().PollPeriod,
-      formatType: FormatType.custom,
-      format: '#0',
-      locale: '',
-    ));
     edtServerLinkController =
         TextEditingController(text: FFAppState().ServerLink);
   }
@@ -64,9 +55,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
             onTap: () async {
               setState(
                   () => FFAppState().ServerLink = edtServerLinkController.text);
-              setState(() => FFAppState().PollingMode = swPollModeValue);
-              setState(() => FFAppState().PollPeriod =
-                  int.parse(edtNickNameController.text));
             },
             child: SingleChildScrollView(
               child: Column(
@@ -140,69 +128,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
-                          child: SwitchListTile(
-                            value: swPollModeValue ??= FFAppState().PollingMode,
-                            onChanged: (newValue) =>
-                                setState(() => swPollModeValue = newValue),
-                            title: Text(
-                              'Poll server continuously',
-                              textAlign: TextAlign.end,
-                              style: FlutterFlowTheme.of(context).bodyText1,
-                            ),
-                            tileColor: Color(0xFFF5F5F5),
-                            dense: false,
-                            controlAffinity: ListTileControlAffinity.trailing,
-                          ),
-                        ),
-                        Align(
-                          alignment: AlignmentDirectional(1, 0),
-                          child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
-                            child: TextFormField(
-                              controller: edtPollPeriodController,
-                              onChanged: (_) => EasyDebounce.debounce(
-                                'edtPollPeriodController',
-                                Duration(milliseconds: 50),
-                                () => setState(() {}),
-                              ),
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                labelText: 'Poll Interval [Seconds]',
-                                hintText: 'Numeric interval [sec] > 0',
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                filled: true,
-                              ),
-                              style: FlutterFlowTheme.of(context).bodyText1,
-                              textAlign: TextAlign.end,
-                              keyboardType: TextInputType.number,
-                              validator: (val) {
-                                if (val.isEmpty) {
-                                  return 'Field is required';
-                                }
-                                if (val.length < 1) {
-                                  return 'Interval must be greater then Null';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                        ),
-                        Padding(
                           padding:
                               EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
                           child: TextFormField(
@@ -258,7 +183,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                         ),
                         if (functions.validateSettings(
                                 edtServerLinkController.text,
-                                int.parse(edtPollPeriodController.text),
                                 edtNickNameController.text) ??
                             true)
                           Padding(
@@ -272,15 +196,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                 } else {
                                   setState(() => FFAppState().ServerLink =
                                       edtServerLinkController.text);
-                                }
-
-                                setState(() =>
-                                    FFAppState().PollingMode = swPollModeValue);
-                                if ((edtPollPeriodController.text) == '') {
-                                  setState(() => FFAppState().PollPeriod = 5);
-                                } else {
-                                  setState(() => FFAppState().PollPeriod =
-                                      int.parse(edtPollPeriodController.text));
                                 }
 
                                 if ((edtNickNameController.text) == '') {
@@ -334,10 +249,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                         child: Image.asset(
-                          'assets/images/Logo_TriColor_WhiteBack_200407-SBR-01.png',
-                          width: 50,
+                          'assets/images/Element_1ldpi.png',
+                          width: 80,
                           height: 75,
-                          fit: BoxFit.cover,
+                          fit: BoxFit.contain,
                         ),
                       ),
                       Text(
@@ -348,7 +263,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                         child: Text(
-                          'Version 1.4.0.3',
+                          'Version 1.4.0.4',
                           textAlign: TextAlign.start,
                           style: FlutterFlowTheme.of(context).bodyText2,
                         ),
